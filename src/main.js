@@ -8,6 +8,13 @@ Vue.component(TypeNav.name, TypeNav)
 import router from './router'
 //引入仓库
 import store from './store'
+//引入MockServer.js -------->mock虚拟数据
+import '@/mock/mockServer'
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI)
 
 new Vue({
   render: h => h(App),

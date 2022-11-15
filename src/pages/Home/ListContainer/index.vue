@@ -3,21 +3,17 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
-            </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
-          </div>
+        <div class="swiper-" id="mySwiper">
+          <el-carousel class="swiper-wrapper" :interval="5000" arrow="always">
+            <el-carousel-item
+              class="swiper-slide"
+              v-for="(item, index) in bannerList"
+              :key="item.id"
+            >
+              <img :src="item.imgUrl" />
+            </el-carousel-item>
+            
+          </el-carousel>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
 
@@ -100,10 +96,44 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {};
+  },
+
+  mounted() {
+    //派发action,通知vuex发起请求，将数据存储再仓库中
+    this.$store.dispatch("getBannerList");
+
+    console.log(this.bannerList.length);
+  },
+
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
+};
 </script>
 
 <style lang="less" scoped>
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
 .list-container {
   width: 1200px;
   margin: 0 auto;

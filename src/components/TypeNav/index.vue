@@ -92,10 +92,6 @@ export default {
       this.currentIndex = index;
     }),
 
-    leaveIndex() {
-      this.currentIndex = -1;
-    },
-
     goSearch(event) {
       let node = event.target;
       let { categoryname, category1id, category2id, category3id } =
@@ -116,6 +112,7 @@ export default {
         if (this.$route.params) {
           location.params = this.$route.params;
           location.query = query;
+          console.log(location);
           this.$router.push(location);
         }
       }
@@ -285,7 +282,7 @@ export default {
     }
     //定义动画时间、速率
     .sort-enter-active {
-      transition: all 0.5s linear;
+      transition: all 0.1s linear;
     }
   }
 }
