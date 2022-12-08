@@ -3,7 +3,19 @@ import mockRequests from './mockRequest'
 
 //三级联动接口
 ///api/product/getBaseCategoryList  get     无参数
-export const reqCategoryList = ()=> requests({url:'/product/getBaseCategoryList',method:'get'})
+export const reqCategoryList = () => requests({
+    url: '/product/getBaseCategoryList',
+    method: 'get'
+})
 
 //获取banner
-export const reqGetBannerList = ()=> mockRequests({url:'/banner',method:'get'})
+export const reqGetBannerList = () => mockRequests({
+    url: '/banner',
+    method: 'get'
+})
+
+//获取floor数据
+export const reqFloorList = () => mockRequests({
+    url: '/floor',
+    method: 'get'
+})

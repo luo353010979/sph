@@ -124,8 +124,8 @@ export default {
       }
     },
     leaveShow() {
+      this.currentIndex = -1;
       if (this.$route.path != "/home") {
-        this.currentIndex = -1;
         this.show = false;
       }
     },

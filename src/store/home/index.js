@@ -1,11 +1,13 @@
 import {
     reqCategoryList,
-    reqGetBannerList
+    reqGetBannerList,
+    reqFloorList,
 } from "@/api"
 
 const state = {
     categoryList: [],
-    bannerList: []
+    bannerList: [],
+    floorList: [],
 }
 const mutations = {
     CATEGORYLIST(state, categoryList) {
@@ -14,10 +16,13 @@ const mutations = {
 
     GETBANNETLIST(state, bannerList) {
         state.bannerList = bannerList
+    },
+
+    GETFLOORLIST(state, floorList) {
+        state.floorList = floorList
     }
 }
 const actions = {
-    //通过api里面的接口函数调用，向服务器发起请求，获取服务器的数据
     async categoryList({
         commit
     }) {
@@ -33,6 +38,15 @@ const actions = {
         let result = await reqGetBannerList()
         if (result.code == 200) {
             commit("GETBANNETLIST", result.data)
+        }
+    },
+
+    async getFloorList({
+        commit
+    }) {
+        let result = await reqFloorList()
+        if (result.code == 200) {
+            commit('GETFLOORLIST', result.data)
         }
     }
 }

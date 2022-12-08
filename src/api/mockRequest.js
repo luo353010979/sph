@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css'
 
 //1:利用axios对象的方法create去创建一个axios实力
 //2.request就是axios只不过稍微配置一下
-const requests = axios.create({
+const requests = axios.create({ 
     baseURL: '/mock',
     timeout: 5000,
 })

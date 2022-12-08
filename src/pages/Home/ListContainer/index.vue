@@ -3,24 +3,20 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-" id="mySwiper">
-          <el-carousel class="swiper-wrapper" :interval="5000" arrow="always">
-            <el-carousel-item
-              class="swiper-slide"
-              v-for="(item, index) in bannerList"
-              :key="item.id"
-            >
-              <img :src="item.imgUrl" />
-            </el-carousel-item>
-            
-          </el-carousel>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <el-carousel
+          :interval="5000"
+          arrow="always"
+          height="454px"
+          v-if="bannerList"
+        >
+          <el-carousel-item
+            class="swiper-slide"
+            v-for="(item, index) in bannerList"
+            :key="item.id"
+          >
+            <img :src="item.imgUrl" width="730px" />
+          </el-carousel-item>
+        </el-carousel>
       </div>
       <div class="right">
         <div class="news">
@@ -30,7 +26,7 @@
           </h4>
           <div class="clearix"></div>
           <ul class="news-list unstyled">
-            <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
+            <li><span class="bold">[特惠]</span>备战开学 季 全民半价购数码</li>
             <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
             <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
             <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
@@ -105,8 +101,6 @@ export default {
   mounted() {
     //派发action,通知vuex发起请求，将数据存储再仓库中
     this.$store.dispatch("getBannerList");
-
-    console.log(this.bannerList.length);
   },
 
   computed: {
@@ -118,22 +112,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 18px;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
 .list-container {
   width: 1200px;
   margin: 0 auto;
