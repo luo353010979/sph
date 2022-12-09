@@ -18,6 +18,10 @@ Vue.use(ElementUI)
 
 new Vue({
   render: h => h(App),
+  beforeCreate() {
+    //全局事件总线
+    Vue.prototype.$bus = this;
+  },
   //注册路由
   router,
   //注册仓库:组件实例的身上会多了一个属性$store属性

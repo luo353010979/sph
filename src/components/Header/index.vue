@@ -62,7 +62,6 @@ export default {
 
   methods: {
     goSearch() {
-    
       if (this.$route.query) {
         let location = {
           name: "search",
@@ -70,9 +69,15 @@ export default {
         };
 
         location.query = this.$route.query;
-        this.$router.push(location)
+        this.$router.push(location);
       }
     },
+  },
+
+  mounted() {
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
   },
 };
 </script>

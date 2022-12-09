@@ -112,7 +112,6 @@ export default {
         if (this.$route.params) {
           location.params = this.$route.params;
           location.query = query;
-          console.log(location);
           this.$router.push(location);
         }
       }
