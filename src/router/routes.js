@@ -77,6 +77,14 @@ export default [
     meta: {
       show: true,
     },
+    //路由独享守卫
+    beforeEnter: (to, from, next) => {
+      if (from.path == "/shopcart") {
+        next();
+      } else {
+        next(false);
+      }
+    },
   },
 
   {
@@ -85,6 +93,13 @@ export default [
     name: "pay",
     meta: {
       show: true,
+    },
+    beforeEnter(to, from, next) {
+      if (from.path == "trade") {
+        next();
+      } else {
+        next(false);
+      }
     },
   },
   {

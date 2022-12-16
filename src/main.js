@@ -19,8 +19,13 @@ import '@/mock/mockServer'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// import VueLazyload from 'vue-lazyload'
 
 Vue.use(ElementUI)
+// Vue.use(VueLazyload,{
+//   //懒加载默认图
+//   loading:
+// })
 
 new Vue({
   render: h => h(App),

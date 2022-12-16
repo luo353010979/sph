@@ -140,6 +140,7 @@ export default {
             this.timer = null;
             done();
           } else {
+            this.code = 200
             if (this.code == 200) {
               clearInterval(this.timer);
               this.timer = null;
