@@ -5,6 +5,7 @@ import Login from "@/pages/Login"
 import Register from "@/pages/Register"
 import Detail from "@/pages/Detail"
 import AddCartSuccess from '@/pages/AddCartSuccess'
+import ShopCart from "@/pages/ShopCart"
 
 
 export default [{
@@ -25,6 +26,16 @@ export default [{
         path: '/addcartsuccess',
         component: AddCartSuccess,
         name:'addcartsuccess',
+        meta: {
+            show: true
+        }
+    },
+
+
+    {
+        path: '/shopcart',
+        component: ShopCart,
+        name:'shopcart',
         meta: {
             show: true
         }

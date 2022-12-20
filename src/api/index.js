@@ -40,3 +40,11 @@ export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({
     url: `/cart/addToCart/${skuId}/${skuNum}`,
     method: 'post'
 })
+
+
+//获取购物车列表
+export const reqShopCartList = () => requests({
+    url: `/cart/cartList`,
+    method: 'get'
+})
+
