@@ -21,6 +21,7 @@
               type="checkbox"
               name="chk_list"
               :checked="goods.isChecked == 1"
+              @change="updateChecked(goods, $event)"
             />
           </li>
           <li class="cart-list-con2">
@@ -58,20 +59,25 @@
             <span class="sum">{{ goods.cartPrice * goods.skuNum }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="deleteCartById(goods)">删除</a>
             <br />
-            <a href="#none">移到收藏</a>
+            <a>移到收藏</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked" />
+        <input
+          class="chooseAll"
+          type="checkbox"
+          :checked="isAllChecked && cartInfoList.length > 0"
+          @change="updateAllCartChecked"
+        />
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -91,6 +97,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import throttle from "lodash/throttle";
 export default {
   name: "ShopCart",
 
@@ -98,7 +105,8 @@ export default {
     getData() {
       this.$store.dispatch("getCartList");
     },
-    handler(type, disNum, goods) {
+
+    handler: throttle(async function (type, disNum, goods) {
       switch (type) {
         case "add":
           disNum = 1;
@@ -115,14 +123,59 @@ export default {
           break;
       }
       try {
-        this.$store.dispatch("addOrUpdateShopCart", {
+        await this.$store.dispatch("addOrUpdateShopCart", {
           skuId: goods.skuId,
           skuNum: disNum,
         });
-        
+
         this.getData();
       } catch (error) {
+        alert(error.message);
+      }
+    }, 1000),
 
+    //删除某一个商品操作
+    async deleteCartById(goods) {
+      try {
+        await this.$store.dispatch("deleteCartListBySkuId", goods.skuId);
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+
+    //修改某一个商品的勾选状态
+    async updateChecked(goods, event) {
+      try {
+        let isChecked = event.target.checked ? "1" : "0";
+        await this.$store.dispatch("updateCheckedById", {
+          skuId: goods.skuId,
+          isChecked,
+        });
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+
+    //删除选中的商品
+    async deleteAllCheckedCart() {
+      try {
+        await this.$store.dispatch("deleteAllCheckedCart");
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+
+    //修改全部选中
+    async updateAllCartChecked(event) {
+      try {
+        let isChecked = event.target.checked ? "1" : "0";
+        await this.$store.dispatch("updateAllCartIsChecked", isChecked);
+        this.getData();
+      } catch (error) {
+        alert(error.message);
       }
     },
   },
