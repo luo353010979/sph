@@ -1,8 +1,15 @@
-import { reqGetCode, reqUserRegister, reqUserLogin } from "@/api";
+import {
+  reqGetCode,
+  reqUserRegister,
+  reqUserLogin,
+  reqUserInfo,
+  reqLogout,
+} from "@/api";
 
 const state = {
   code: "",
-  token: "",
+  token: localStorage.getItem("TOKEN"),
+  userInfo: {},
 };
 const mutations = {
   GETCODE(state, code) {
@@ -11,6 +18,17 @@ const mutations = {
 
   USERLOGIN(state, token) {
     state.token = token;
+  },
+
+  GETUSERINFO(state, info) {
+    state.userInfo = info;
+  },
+
+  //清除本地数据
+  CLEAR(state) {
+    state.token = "";
+    state.userInfo = {};
+    localStorage.removeItem('TOKEN')
   },
 };
 const actions = {
@@ -40,9 +58,32 @@ const actions = {
     let result = await reqUserLogin(data);
     if (result.code == 200) {
       commit("USERLOGIN", result.data.token);
+      localStorage.setItem("TOKEN", result.data.token);
       return "ok";
     } else {
       return Promise.reject(new Error("fail"));
+    }
+  },
+
+  //退出登录
+  async userLogout({ commit }) {
+    let result = await reqLogout();
+    if (result.code == 200) {
+      commit("CLEAR");
+      return "ok";
+    } else {
+      return Promise.reject(new Error(result.message));
+    }
+  },
+
+  //获取用户信息
+  async getUserInfo({ commit }) {
+    let result = await reqUserInfo();
+    if (result.code == 200) {
+      commit("GETUSERINFO", result.data);
+      return "ok";
+    } else {
+      return Promise.reject(new Error(result.message));
     }
   },
 };

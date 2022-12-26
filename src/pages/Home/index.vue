@@ -42,6 +42,8 @@ export default {
     this.$store.dispatch("getFloorList");
   },
 
+ 
+
   computed: {
     ...mapState({
       floorList: (state) => state.home.floorList,

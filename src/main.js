@@ -3,6 +3,10 @@ import App from './App.vue'
 //三级联动组件---全局组件
 import TypeNav from './components/TypeNav'
 import Pagination from '@/components/Pagination'
+
+//统一引入接口api文件里面的全部请求
+import * as API from '@/api'
+
 //第一个参数：全局组件的名字 第二个参数：哪一个组件
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Pagination.name, Pagination)
@@ -23,6 +27,7 @@ new Vue({
   beforeCreate() {
     //全局事件总线
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API
   },
   //注册路由
   router,
